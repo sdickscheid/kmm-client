@@ -5,22 +5,38 @@
     <img src="../assets/m-pink.png">
     <div class="login-form">
       <h3 class="mb-3">Admin Login</h3>
-      <input type="email" placeholder="email" />
-      <input type="password" placeholder="password" />
-      <b-button type="submit">Login</b-button>
+      <input v-model="email" type="email" placeholder="email" />
+      <input v-model="password" type="password" placeholder="password" />
+      <b-button type="submit" @click.prevent="login">Login</b-button>
+
+      <p style="color:red; font-size:30px";>{{error}}</p>
     </div>
   </div>
 </template>
 
 
 <script>
+import axios from 'axios';
 export default {
   name: 'Login',
 
   data(){
     return {
       title: 'Admin Panel - K Mitchell Media',
-      owner: 'Kathryn'
+      owner: 'Kathryn',
+      email:"",
+      password: "",
+      error: ""
+    }
+  },
+  methods:{
+    login:function(){
+      axios.post('/letmein', {email: this.email, password:this.password}).then((res)=>{
+        console.log(res);
+        this.$router.push('/dashboard');
+      }).catch(()=>{
+        this.error = "Invalid Login Credentials. Please try again!"
+      })
     }
   }
 }

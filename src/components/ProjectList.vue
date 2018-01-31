@@ -92,6 +92,80 @@
         <h3 id="title-project-list" class="display-5 mb-5">Project List</h3>
       </b-col>
     </b-row>
+    <div>
+      <b-modal id="modalEdit"
+         ref="modal"
+         title="Edit Existing Project Details"
+         @ok="handleEdit"
+         @shown="clearName">
+        <form @submit.stop.prevent="handleEdit">
+          <p>Client Name</p>
+          <b-form-input
+            class="mb-3"
+            type="text"
+            v-model="edit_form_data.client_name">
+          </b-form-input>
+
+          <p>Company</p>
+          <b-form-input
+            class="mb-3"
+            type="text"
+            v-model="edit_form_data.company">
+          </b-form-input>
+
+          <p>Project Name</p>
+          <b-form-input
+            class="mb-3"
+            type="text"
+            v-model="edit_form_data.project_name">
+          </b-form-input>
+
+          <p>Date Published (Mon. YYYY)</p>
+          <b-form-input
+            class="mb-3"
+            type="text"
+            v-model="edit_form_data.published">
+          </b-form-input>
+
+          <p>Runtime/Length (Ex. 3:45)</p>
+          <b-form-input
+            class="mb-3"
+            type="text"
+            v-model="edit_form_data.length">
+          </b-form-input>
+
+          <p>Vimeo ID# (Ex. 222111333)</p>
+          <b-form-input
+            class="mb-3"
+            type="number"
+            v-model="edit_form_data.vimeo_id">
+          </b-form-input>
+
+          <p>Project Description</p>
+          <b-form-textarea
+            class="mb-3"
+            type="textarea"
+            v-model="edit_form_data.description"
+            :rows="3"
+            :max-rows="6">
+          </b-form-textarea>
+
+          <p>Select a category</p>
+          <b-form-select
+            :options="options"
+            class="mb-3"
+            v-model="edit_form_data.c2">
+          </b-form-select>
+
+          <p>Select a category</p>
+          <b-form-select
+            :options="options"
+            class="mb-3"
+            v-model="edit_form_data.c3">
+          </b-form-select>
+        </form>
+      </b-modal>
+    </div>
 
     <b-row no-gutters class="project-table-container">
       <b-col cols="12">
@@ -106,10 +180,20 @@
           :fields="fields"
         >
           <template slot="edit" slot-scope="row">
-            <b-button size="sm" class="edit-btn px-1">
+            <b-button
+            size="sm"
+            class="edit-btn px-1"
+            v-b-modal.modalEdit
+            v-b-modal.modal-center
+            @click="loadEdit(row.index)"
+            >
              {{ }} Edit
             </b-button>
+
+            <!-- EDIT MODAL -->
+
           </template>
+
           <template slot="delete" slot-scope="row">
             <b-button size="sm" class="del-btn px-1" @click="deleteProject(row.item.id)">
              {{ }} Delete
@@ -137,12 +221,12 @@ export default {
         { value: 'About', text: 'About' },
         { value: 'Audition/Talent', text: 'Audition/Talent' },
         { value: 'Campaign', text: 'Campaign' },
-        { value: 'Commercials', text: 'Commercials' },
+        { value: 'Commercial', text: 'Commercial' },
         { value: 'Corporate', text: 'Corporate' },
         { value: 'Documentary', text: 'Documentary' },
         { value: 'DIY', text: 'DIY' },
         { value: 'Social Media', text: 'Social Media' },
-        { value: 'Testimonials', text: 'Testimonials' },
+        { value: 'Testimonial', text: 'Testimonial' },
       ],
       fields: [
         { key: 'id', sortable: true },
@@ -168,7 +252,19 @@ export default {
         description:"",
         c2:null,
         c3:null
-      }
+      },
+      edit_form_data: {
+        id:"",
+        client_name:"",
+        company: "",
+        project_name:"",
+        date_published: "",
+        length:"",
+        vimeo_id:"",
+        description:"",
+        c2:null,
+        c3:null
+      },
     }
   },
 
@@ -186,6 +282,20 @@ export default {
         c3:""
       }
     },
+    loadEdit(index){
+      console.log(index);
+      this.edit_form_data = this.items[index];
+      console.log(this.items[index]);
+    },
+
+    handleEdit(){
+      console.log("asdfasdf");
+      console.log(`/update/${this.edit_form_data.id}`);
+      this.axios.post(`/update/${this.edit_form_data.id}`, this.edit_form_data)
+        .then((projects)=>{
+          console.log("projects are", projects);
+        })
+    },
 
     handleOk (e) {
       e.preventDefault()
@@ -193,10 +303,12 @@ export default {
     },
 
     handleSubmit () {
+      console.log("in handle submit");
       this.axios.post('/projects', this.form_data).then((res)=>{
         console.log(res);
         this.clearName()
         this.$refs.modal.hide()
+        this.items = res.data
       })
 
     },
@@ -204,7 +316,8 @@ export default {
     deleteProject(item) {
       console.log("HEEEEERREEEE");
       this.axios.delete(`/delete/${item}`).then(response => {
-        this.items = this.items.filter(item => item.id != item);
+        console.log(response);
+        this.items = this.items.filter(item => item.id != response.data);
         console.log("HEEEEERREEEE 2")
       })
       .catch(err => {
