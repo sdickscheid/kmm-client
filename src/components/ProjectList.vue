@@ -175,6 +175,7 @@
           small
           hover
           outlined
+          tdClass="text-center"
           :items="items"
           :fields="fields"
         >
