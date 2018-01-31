@@ -1,4 +1,3 @@
-
 <template>
   <b-container fluid id="project-list" class="flex-cols pr-2 pl-2">
     <b-row no-gutters>
@@ -180,25 +179,23 @@
           :fields="fields"
         >
           <template slot="edit" slot-scope="row">
-            <b-button
-            size="sm"
-            class="edit-btn px-1"
-            v-b-modal.modalEdit
-            v-b-modal.modal-center
-            @click="loadEdit(row.index)"
-            >
-             {{ }} Edit
-            </b-button>
-
+            <i class="fa fa-pencil-square-o"
+              aria-hidden="true"
+              v-b-modal.modalEdit
+              v-b-modal.modal-center
+              @click="loadEdit(row.index)"
+            ></i>
             <!-- EDIT MODAL -->
 
           </template>
 
           <template slot="delete" slot-scope="row">
-            <b-button size="sm" class="del-btn px-1" @click="deleteProject(row.item.id)">
-             {{ }} Delete
-            </b-button>
+            <i class="fa fa-trash-o"
+            aria-hidden="true"
+            @click="deleteProject(row.item.id)"
+            ></i>
           </template>
+
         </b-table>
       </b-col>
     </b-row>
@@ -209,8 +206,6 @@
 
 
 <script>
-
-
 export default {
   name: 'ProjectList',
   data(){
@@ -341,7 +336,6 @@ export default {
 *{
   margin: 0;
   padding: 0;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -11,7 +11,9 @@ export default {
 }
 </script>
 
-
+<!-- // <style lang='scss'>
+//   @import 'assets/font-awesome.min.css';
+// </style> -->
 
 
 <style scoped>
@@ -19,6 +21,7 @@ export default {
   margin: 0;
   padding: 0px;
 }
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

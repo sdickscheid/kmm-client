@@ -10,7 +10,7 @@
               <h3 class="text-center display-4">KMM Admin Dashboard</h3>
             </div>
             <div>
-              <a class="mr-3 logout" href="#">logout</a>
+              <a class="mr-3 logout" href="/login">logout</a>
             </div>
           </b-navbar>
       </b-col>

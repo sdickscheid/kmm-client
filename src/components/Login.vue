@@ -9,7 +9,7 @@
       <input v-model="password" type="password" placeholder="password" />
       <b-button type="submit" @click.prevent="login">Login</b-button>
 
-      <p style="color:red; font-size:30px";>{{error}}</p>
+      <p style="color:red; font-size:30px">{{error}}</p>
     </div>
   </div>
 </template>
