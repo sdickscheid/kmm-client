@@ -75,7 +75,7 @@
 
     <b-row no-gutters>
       <b-col cols="12" class="text-left ml-2 mt-5">
-        <h3 id="title-contact-list" class="display-5 mb-5">Contact List</h3>
+        <h3 id="title-contact-list" class="display-5 mb-5">Contact Management</h3>
       </b-col>
     </b-row>
 
@@ -244,6 +244,11 @@ export default {
   color: white;
 }
 
+.contact-table {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .create-btn-row {
   display: flex;
   justify-content: flex-end;
@@ -277,11 +282,6 @@ export default {
 }
 #contacttitle-project-list {
   margin-bottom: 30px;
-}
-
-.contact-table {
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 
 </style>

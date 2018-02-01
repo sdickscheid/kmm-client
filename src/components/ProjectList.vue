@@ -88,7 +88,7 @@
 
     <b-row no-gutters>
       <b-col cols="12" class="text-left ml-2 mt-5">
-        <h3 id="title-project-list" class="display-5 mb-5">Project List</h3>
+        <h3 id="title-project-list" class="display-5 mb-4">Portfolio Management</h3>
       </b-col>
     </b-row>
     <div>
@@ -361,6 +361,11 @@ export default {
   color: white;
 }
 
+.project-table {
+  /* margin-top: 10px; */
+  margin-bottom: 20px;
+}
+
 .project-table-container >>> td:nth-of-type(1),
 .project-table-container >>> td:nth-of-type(6),
 .project-table-container >>> td:nth-of-type(7) {
@@ -409,11 +414,6 @@ export default {
 }
 #title-project-list {
   margin-bottom: 30px;
-}
-
-.project-table {
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 
 </style>
