@@ -213,6 +213,37 @@ export default {
   overflow-x: hidden;
 }
 
+/* column header */
+.contact-table-container >>> th:nth-child(1) {
+  text-align: center;
+}
+
+.contact-table-container >>> th:nth-child(6),
+.contact-table-container >>> th:nth-child(7) {
+  width: 130px;
+}
+
+.contact-table-container >>> th:nth-child(2),
+.contact-table-container >>> th:nth-child(3)  {
+  width: 170px;
+}
+
+/* column data */
+.contact-table-container >>> td:nth-of-type(1) {
+  text-align: center;
+}
+
+.contact-table-container >>> tr,
+.contact-table-container >>> th,
+.contact-table-container >>> td {
+  border: 1px solid grey;
+}
+
+.contact-table-container >>> th {
+  background-color: #555555;
+  color: white;
+}
+
 .create-btn-row {
   display: flex;
   justify-content: flex-end;

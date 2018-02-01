@@ -179,19 +179,20 @@
           :items="items"
           :fields="fields"
         >
+
           <template slot="edit" slot-scope="row">
             <i class="fa fa-pencil-square-o"
+              style="color:blue; display:flex; justify-content:center;"
               aria-hidden="true"
               v-b-modal.modalEdit
               v-b-modal.modal-center
               @click="loadEdit(row.index)"
             ></i>
-            <!-- EDIT MODAL -->
-
           </template>
 
-          <template slot="delete" slot-scope="row">
+          <template slot="delete" slot-scope="row" style="text-align:center;">
             <i class="fa fa-trash-o"
+            style="color:red; display:flex; justify-content:center;"
             aria-hidden="true"
             @click="deleteProject(row.item.id)"
             ></i>
@@ -340,6 +341,32 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.project-table-container >>> th:nth-child(1),
+.project-table-container >>> th:nth-child(6),
+.project-table-container >>> th:nth-child(7),
+.project-table-container >>> th:nth-child(10),
+.project-table-container >>> th:nth-child(11) {
+  text-align: center;
+}
+
+.project-table-container >>> tr,
+.project-table-container >>> th,
+.project-table-container >>> td {
+  border: 1px solid grey;
+}
+
+.project-table-container >>> th {
+  background-color: #555555;
+  color: white;
+}
+
+.project-table-container >>> td:nth-of-type(1),
+.project-table-container >>> td:nth-of-type(6),
+.project-table-container >>> td:nth-of-type(7) {
+  text-align: center;
+}
+
 #project-list {
   display: flex;
   flex-direction: column;
