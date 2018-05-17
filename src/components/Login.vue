@@ -33,6 +33,7 @@ export default {
     login:function(){
       axios.post('/letmein', {email: this.email, password:this.password}).then((res)=>{
         console.log(res);
+        localStorage.setItem("token", res.data.token);
         this.$router.push('/dashboard');
       }).catch(()=>{
         this.error = "Invalid Login Credentials. Please try again!"

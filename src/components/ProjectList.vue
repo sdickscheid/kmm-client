@@ -88,7 +88,7 @@
 
     <b-row no-gutters>
       <b-col cols="12" class="text-left ml-2 mt-5">
-        <h3 id="title-project-list" class="display-5 mb-4">Portfolio Management</h3>
+        <h3 id="title-project-list" class="display-5">Portfolio Management</h3>
       </b-col>
     </b-row>
     <div>
@@ -166,7 +166,7 @@
       </b-modal>
     </div>
 
-    <b-row no-gutters class="project-table-container">
+    <b-row no-gutters class="project-table-container mt-3">
       <b-col cols="12">
         <b-table
           class="project-table"
@@ -279,43 +279,53 @@ export default {
         c3:""
       }
     },
+
     loadEdit(index){
-      console.log(index);
       this.edit_form_data = this.items[index];
       console.log(this.items[index]);
     },
 
+    // Without JWT
+    // handleEdit(){
+    //   this.axios.post(`/update/${this.edit_form_data.id}`, this.edit_form_data)
+    //     .then((projects)=>{
+    //       console.log("projects are", projects);
+    //     })
+    // },
+
+    // With JWT
     handleEdit(){
-      console.log("asdfasdf");
-      console.log(`/update/${this.edit_form_data.id}`);
-      this.axios.post(`/update/${this.edit_form_data.id}`, this.edit_form_data)
+      let token = localStorage.getItem("token");
+      this.axios.post(`/update/${this.edit_form_data.id}`, {token:token, edits:this.edit_form_data})
         .then((projects)=>{
           console.log("projects are", projects);
         })
     },
 
-    handleOk (e) {
+    handleOk(e) {
       e.preventDefault()
       this.handleSubmit();
     },
 
     handleSubmit () {
       console.log("in handle submit");
-      this.axios.post('/projects', this.form_data).then((res)=>{
-        console.log(res);
-        this.clearName()
-        this.$refs.modal.hide()
-        this.items = res.data
+      let token = localStorage.getItem("token");
+      this.axios.post('/projects', {token:token, project:this.form_data})
+        .then((res)=>{
+          console.log(res);
+          this.clearName()
+          this.$refs.modal.hide()
+          this.items = res.data
       })
 
     },
 
     deleteProject(item) {
-      console.log("HEEEEERREEEE");
-      this.axios.delete(`/delete/${item}`).then(response => {
-        console.log(response);
-        this.items = this.items.filter(item => item.id != response.data);
-        console.log("HEEEEERREEEE 2")
+      let token = localStorage.getItem("token");
+      this.axios.delete(`/delete/${item}/?token=${token}`)
+        .then(response => {
+          console.log(response);
+          this.items = this.items.filter(item => item.id != response.data);
       })
       .catch(err => {
         console.log('AXIOS ERR:', err)
@@ -328,6 +338,9 @@ export default {
     .then(response =>{
       console.log(response)
       this.items = response.data;
+    })
+    .catch(()=>{
+      this.$router.push("/")
     })
   },
 

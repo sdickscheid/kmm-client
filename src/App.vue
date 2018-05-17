@@ -11,11 +11,6 @@ export default {
 }
 </script>
 
-<!-- // <style lang='scss'>
-//   @import 'assets/font-awesome.min.css';
-// </style> -->
-
-
 <style scoped>
 *{
   margin: 0;

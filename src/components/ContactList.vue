@@ -75,7 +75,7 @@
 
     <b-row no-gutters>
       <b-col cols="12" class="text-left ml-2 mt-5">
-        <h3 id="title-contact-list" class="display-5 mb-5">Contact Management</h3>
+        <h3 id="title-contact-list" class="display-5 mt-3">Contact Management</h3>
       </b-col>
     </b-row>
 
@@ -165,19 +165,22 @@ export default {
     },
 
     handleSubmit () {
-      this.axios.post('/contacts', this.form_data).then((res)=>{
-        console.log(res);
-        this.clearName()
-        this.$refs.modal.hide()
+      let token = localStorage.getItem("token");
+      this.axios.post('/contacts', {token:token, contact:this.form_data})
+        .then((res)=>{
+          console.log(res);
+          this.clearName()
+          this.$refs.modal.hide()
       })
 
     },
 
     deleteContact(item) {
-      console.log("HEEEEERREEEE");
-      this.axios.delete(`/delete/${item}`).then(response => {
-        this.items = this.items.filter(item => item.id != item);
-        console.log("HEEEEERREEEE 2")
+      let token = localStorage.getItem("token");
+      this.axios.delete(`/delete/${item}/?token=${token}`)
+        .then(response => {
+          console.log(response);
+          this.items = this.items.filter(item => item.id != item);
       })
       .catch(err => {
         console.log('AXIOS ERR:', err)
@@ -186,10 +189,14 @@ export default {
   },
 
   created: function(){
-    this.axios.get('/contacts')
+    let token = localStorage.getItem("token");
+    this.axios.get(`/contacts/?token=${token}`)
     .then(response =>{
       console.log(response)
       this.items = response.data;
+    })
+    .catch(()=>{
+      this.$router.push("/")
     })
   },
 
