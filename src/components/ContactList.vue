@@ -112,7 +112,7 @@
 
 <script>
 
-
+/* eslint-disable */
 export default {
   name: 'ContactList',
   data(){

@@ -29,6 +29,12 @@ export default {
     'content-container': ContentContainer
   },
   name: 'Dashboard',
+  beforeCreate(){
+    console.log("RUNNING CREATED");
+    if(!localStorage.getItem("token")){
+      window.location.href = "/login"
+    }
+  }
 
 }
 </script>

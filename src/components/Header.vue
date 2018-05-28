@@ -10,7 +10,7 @@
               <h3 class="text-center display-4">KMM Admin Dashboard</h3>
             </div>
             <div>
-              <a class="mr-3 logout" href="/login">logout</a>
+              <a class="mr-3 logout" @click="logout" href="#">logout</a>
             </div>
           </b-navbar>
       </b-col>
@@ -27,6 +27,14 @@ export default {
     return {
       title: 'Admin Panel - K Mitchell Media',
       owner: 'Kathryn'
+    }
+  },
+
+  methods:{
+    logout: (e)=>{
+      e.preventDefault()
+      localStorage.removeItem("token");
+      window.location.href = "/login";
     }
   }
 }
